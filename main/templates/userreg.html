@@ -91,21 +91,52 @@
             </div>
             <div class="col-lg-7">
                 <div class="bg-light text-center p-5 wow fadeIn" data-wow-delay="0.5s">
-                    <form>
+                    <form method="post" enctype="multipart/form-data" >
+                        {%csrf_token%}
+                    {%if messages %}
+                    <div class="alert alert-primary" role="alert">
+                    {%for message in messages %}
+                    {{message}}
+                    {%endfor%}
+                </div> 
+                {%endif%}
                         <div class="row g-3">
                             <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="First Name" style="height: 55px;">
+                                <input type="text" class="form-control border-0" placeholder="First Name" name="first_name" style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="Last Name" style="height: 55px;">
+                                <input type="text" class="form-control border-0" placeholder="Last Name" name="last_name" style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-12">
-                                <input type="email" class="form-control border-0" placeholder="Enter your Email" style="height: 55px;">
+                                <input type="text" class="form-control border-0" placeholder="Enter your username" name="username" style="height: 55px;">
                             </div>
                             <div class="col-12 col-sm-12">
-                                <input type="password" class="form-control border-0" placeholder="Enter a Password" style="height: 55px;">
+                                <input type="password" class="form-control border-0" placeholder="Enter a Password" name="password" style="height: 55px;">
                             </div>
-                            
+                            <div class="col-12 col-sm-6">
+                                <input type="email" class="form-control border-0" placeholder="email" name="email" style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="text" class="form-control border-0" placeholder="address" name="address" style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="text" class="form-control border-0" placeholder="phone no"  name="phoneno"style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="date" class="form-control border-0" placeholder="DOB" name="dob" style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="text" class="form-control border-0" placeholder="bio"  name="user_bio"style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="text" class="form-control border-0" placeholder="location"  name="location" style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="text" class="form-control border-0" placeholder="type"  name="type" style="height: 55px;">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input type="file" class="form-control border-0" placeholder="profile picture" name="user_image" style="height: 55px;">
+                            </div>
                             
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Register</button>

@@ -30,7 +30,10 @@ urlpatterns = [
     path('contact_view',contact_view,name="contact_view"),
     path('about_view',about_view,name="about_view"),
     path('my_view',my_view,name="my_view"),
-    
+    path('user_home',user_home,name="user_home"),
+    path('logout_view',logout_view,name="logout_view"),
+    path('worker_home',worker_home,name="worker_home")
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
