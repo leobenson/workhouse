@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'main.customUser'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -99,6 +99,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'main.custom_auth_backends.MultiUserModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    # Add other authentication backends if needed
 ]
 
 
