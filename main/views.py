@@ -17,8 +17,14 @@ def my_view(request):
 
 def user_home(request):
     username = request.session.get('username')
-    context = {'username':username}                            
-
+    users =User.objects.all()
+    for i in users:
+        if i.username == username:
+            f_name=i.first_name
+            l_name=i.last_name
+            img=i.user_image
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img}                            
+    
     return render(request,"userhome.html",context)
 
 def worker_home(request):
@@ -28,6 +34,10 @@ def worker_home(request):
 def admin_home(request):
 
     return render(request,"admin_home.html")
+
+def job_post(request):
+
+    return render(request,"jobpost.html")
 
 
 
@@ -52,6 +62,7 @@ def login_view(request):
                 return redirect('moderator_home')
             elif isinstance(user, User):
                 login(request, user)
+                request.session['username'] = request.user.username
                 return redirect('user_home')
             elif isinstance(user, Worker):
                 login(request, user)
