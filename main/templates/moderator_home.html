@@ -50,19 +50,7 @@
 
  <!--style-->
  <style>
-    .grid-container{
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       padding-top: 50px; 
-       row-gap: 20px; 
-    }
-
-    .grid-item{
-        align-items: center;
-    }
    
- 
  </style>
 
  
@@ -100,11 +88,11 @@
                       
                       <img                        
                         class="user__avatar"
-                        src="/static/img/testimonial-4.jpg"
+                        src="/static/img/testimonial-2.jpg"
                         alt=""
                       />
                       
-                      <h4>ADMIN</h4>
+                      <h4>MODERATOR</h4>
                     </div>
                     <span class="material-icons"> add </span>
                     <span class="material-icons"> forum </span>
@@ -132,10 +120,10 @@
           <div class="sidebarRow">
             <img
               class="user__avatar"
-              src="/static/img/testimonial-4.jpg"
+              src="/static/img/testimonial-2.jpg"
               alt="" 
             />
-            <h4>Dashboard</h4>
+            <h4>MODERATOR</h4>
           </div>
   
           
@@ -168,58 +156,7 @@
           </div>
         </div>
         <!-- sidebar ends -->
-        <main>
-            <div class="grid-container  ">
-             
-            <div class="col-lg-7  grid-item grid-item-2" >
-                <h4>Add a moderator</h4>        
-                     
-                <div class="bg-light text-center p-5 wow fadeIn" data-wow-delay="0.5s">
-                    <form method="post" enctype="multipart/form-data" >
-                        {%csrf_token%}
-                    {%if messages %}
-                    <div class="alert alert-primary" role="alert">
-                    {%for message in messages %}
-                    {{message}}
-                    {%endfor%}
-                </div> 
-                {%endif%}
-                        <div class="row g-3">
-                           
-                            <div class="col-12 col-sm-12">
-                                <input type="text" class="form-control border-0" placeholder="Enter your username" name="username" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-12">
-                                <input type="password" class="form-control border-0" placeholder="Enter a Password" name="password" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="email" class="form-control border-0" placeholder="email" name="email" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="address" name="address" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="phone no"  name="phoneno"style="height: 55px;">
-                            </div>
-                           
-                            <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="location"  name="location" style="height: 55px;">
-                            </div>
-                           
-                            
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Add</button>
-                            </div>
-                        </div>
-                    </form>
-                   
-                </div>
-                
-            </div>
-            
-          </div>
-        
-          </main>
+         
         </div>
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-3 wow" data-wow-delay="0.1s" style="margin-top: 6rem;">

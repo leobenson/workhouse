@@ -34,7 +34,9 @@ urlpatterns = [
     path('logout_view',logout_view,name="logout_view"),
     path('worker_home',worker_home,name="worker_home"),
     path('admin_home',admin_home,name="admin_home"),
-    path('job_post',job_post,name="job_post")
+    path('moderator_home',moderator_home,name="moderator_home"),
+    path('job_post',job_post,name="job_post"),
+    path('worker_valid',worker_valid,name="worker_valid")
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

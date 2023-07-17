@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
-from .models import User, Worker
+from .models import User, Worker ,Moderator
 
 class MultiUserModelBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
@@ -7,11 +7,11 @@ class MultiUserModelBackend(ModelBackend):
         user = User.objects.filter(username=username).first()
         if user and user.check_password(password):
             return user
-        
+
         # Try authenticating against the second user model (UserModel2)
         user = Worker.objects.filter(username=username).first()
         if user and user.check_password(password):
             return user
-        
-        # If authentication fails for both models, return None
-        return None
+        # Try authenticating against the third user model (UserModel3)
+        user = Moderator.objects.filter(username=username).first()
+        return user if user and user.check_password(password) else None

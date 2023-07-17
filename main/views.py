@@ -28,16 +28,68 @@ def user_home(request):
     return render(request,"userhome.html",context)
 
 def worker_home(request):
+    username = request.session.get('username')
+    users =Worker.objects.all()
+    for i in users:
+        if i.username == username:
+            f_name=i.first_name
+            l_name=i.last_name
+            img=i.user_image
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img}
     
-    return render(request,"worker_home.html")
+    return render(request,"workhome.html",context)
+
+
+def moderator_home(request):
+
+    return render(request,"moderator_home.html")
+
+
 
 def admin_home(request):
+    if request.method != "POST":
+        return render(request,'admin_home.html')
+    username = request.POST.get('username')
+    password = request.POST.get('password')    
+    address = request.POST.get('address')
+    phone = request.POST.get('phoneno')   
+    email=request.POST.get('email')    
+    location=request.POST.get('location')
+   
 
-    return render(request,"admin_home.html")
+    moderator=Moderator.objects.filter(username = username)
+    if moderator.exists():
+        messages.info(request,'username already exists ')
+        return redirect('/admin_home')
 
-def job_post(request):
+    moderator = Moderator.objects.create(
+      
+       username = username,
+       address =address,      
+       phone = phone,       
+       location = location,
+       email = email,      
 
-    return render(request,"jobpost.html")
+    )
+    moderator.set_password(password)
+    moderator.save()
+    messages.info(request,'registered sucessfully')
+    return redirect('/admin_home')
+
+
+
+
+def job_post(request) :
+    username = request.session.get('username')
+    users =User.objects.all()
+    for i in users:
+        if i.username == username:
+            f_name=i.first_name
+            l_name=i.last_name
+            img=i.user_image
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img} 
+   
+    return render(request,"jobpost.html",context)
 
 
 
@@ -49,9 +101,9 @@ def login_view(request):
         if username == 'admin' and password == 'admin':
             print("Login successful")
             return redirect('/admin_home')
-               
+
         user = auth.authenticate(request, username = username,password = password)
-        
+
         print (user)
         if user is None:
             messages.error(request , 'invalid password')
@@ -61,13 +113,17 @@ def login_view(request):
                 login(request, user)
                 return redirect('moderator_home')
             elif isinstance(user, User):
-                login(request, user)
-                request.session['username'] = request.user.username
-                return redirect('user_home')
+                return _extracted_from_login_view_21(request, user, 'user_home')
             elif isinstance(user, Worker):
-                login(request, user)
-                return redirect('worker_home')
+                return _extracted_from_login_view_21(request, user, 'worker_home')
     return render(request,"login.html")
+
+
+# TODO Rename this here and in `login_view`
+def _extracted_from_login_view_21(request, user, arg2):
+    login(request, user)
+    request.session['username'] = request.user.username
+    return redirect(arg2)
 
   
 
@@ -162,7 +218,9 @@ def worker_reg(request):
     messages.info(request,'registered sucessfully')
     return redirect('/worker_reg')
 
+def worker_valid(request):
 
+    return render(request,"workervalidation.html")
 
    
 def contact_view(request):

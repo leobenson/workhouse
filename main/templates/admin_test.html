@@ -47,26 +47,77 @@
 
  <!-- Template Javascript -->
  <script src="{% static 'js/main.js' %}"></script>
-
- <!--style-->
  <style>
-    .grid-container{
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       padding-top: 50px; 
-       row-gap: 20px; 
-    }
+  .card {
+ width: 190px;
+ height: 254px;
+ background: #3405a3;
+ border-radius: 15px;
+ box-shadow: 1px 5px 60px 0px #100a886b;
+}
 
-    .grid-item{
-        align-items: center;
-    }
-   
+.card .card-border-top {
+ width: 60%;
+ height: 3%;
+ background: #6b64f3;
+ margin: auto;
+ border-radius: 0px 0px 15px 15px;
+}
+
+.card span {
+ font-weight: 600;
+ color: white;
+ text-align: center;
+ display: block;
+ padding-top: 10px;
+ font-size: 16px;
+}
+
+.card .job {
+ font-weight: 400;
+ color: white;
+ display: block;
+ text-align: center;
+ padding-top: 3px;
+ font-size: 12px;
+}
+
+.card .img {
+ width: 70px;
+ height: 80px;
+ background: #6b64f3;
+ border-radius: 15px;
+ margin: auto;
+ margin-top: 25px;
+}
+
+.card button {
+ padding: 8px 25px;
+ display: block;
+ margin: auto;
+ border-radius: 8px;
+ border: none;
+ margin-top: 30px;
+ background: #6b64f3;
+ color: white;
+ font-weight: 600;
+}
+
+.card button:hover {
+ background: #534bf3;
+}
+
+.grid-container{
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(200px, 800px));
+ grid-gap: 20px;
  
+}
+
+
+
  </style>
-
- 
-</head>
+  </head>
 
 <body>
     <!-- Spinner Start -->
@@ -132,17 +183,17 @@
           <div class="sidebarRow">
             <img
               class="user__avatar"
-              src="/static/img/testimonial-4.jpg"
+              src="media/{{img}}"
               alt="" 
             />
-            <h4>Dashboard</h4>
+            <h4>{{f_name}} {{l_name}}</h4>
           </div>
   
           
   
           <div class="sidebarRow">
-            <span class="material-icons"> settings </span>
-            <h4>Moderator</h4>
+            <span class="material-icons"> emoji_flags </span>
+            <h4>Organisation</h4>
           </div>
   
           <div class="sidebarRow">
@@ -152,7 +203,7 @@
   
           <div class="sidebarRow">
             <span class="material-icons"> chat </span>
-            <h4>Messege</h4>
+            <h4>Messenge</h4>
           </div>
   
           <div class="sidebarRow">
@@ -169,54 +220,68 @@
         </div>
         <!-- sidebar ends -->
         <main>
-            <div class="grid-container  ">
-             
-            <div class="col-lg-7  grid-item grid-item-2" >
-                <h4>Add a moderator</h4>        
-                     
-                <div class="bg-light text-center p-5 wow fadeIn" data-wow-delay="0.5s">
-                    <form method="post" enctype="multipart/form-data" >
-                        {%csrf_token%}
-                    {%if messages %}
-                    <div class="alert alert-primary" role="alert">
-                    {%for message in messages %}
-                    {{message}}
-                    {%endfor%}
-                </div> 
-                {%endif%}
-                        <div class="row g-3">
-                           
-                            <div class="col-12 col-sm-12">
-                                <input type="text" class="form-control border-0" placeholder="Enter your username" name="username" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-12">
-                                <input type="password" class="form-control border-0" placeholder="Enter a Password" name="password" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="email" class="form-control border-0" placeholder="email" name="email" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="address" name="address" style="height: 55px;">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="phone no"  name="phoneno"style="height: 55px;">
-                            </div>
-                           
-                            <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="location"  name="location" style="height: 55px;">
-                            </div>
-                           
-                            
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Add</button>
-                            </div>
-                        </div>
-                    </form>
-                   
+         <div class="grid-container">
+          <div class=" grid-item grid-item-1">
+             <div class="card">
+                <div class="card-border-top">
                 </div>
-                
+                <div class="img">
+                </div>
+                <span> Person</span>
+                <p class="job"> Job Title</p>
+                <button> Click
+                </button>
+              </div>
+              
             </div>
-            
+            <div class=" grid-item grid-item-2">
+              <div class="card">
+                <div class="card-border-top">
+                </div>
+                <div class="img">
+                </div>
+                <span> Person</span>
+                <p class="job"> Job Title</p>
+                <button> Click
+                </button>
+              </div>
+            </div>
+            <div class=" grid-item grid-item-4">
+              <div class="card">
+                <div class="card-border-top">
+                </div>
+                <div class="img">
+                </div>
+                <span> Person</span>
+                <p class="job"> Job Title</p>
+                <button> Click
+                </button>
+              </div>
+            </div>
+            <div class=" grid-item grid-item-4">
+              <div class="card">
+                <div class="card-border-top">
+                </div>
+                <div class="img">
+                </div>
+                <span> Person</span>
+                <p class="job"> Job Title</p>
+                <button> Click
+                </button>
+              </div>
+            </div>
+            <div class=" grid-item grid-item-5">
+              <div class="card">
+                <div class="card-border-top">
+                </div>
+                <div class="img">
+                </div>
+                <span> Person</span>
+                <p class="job"> Job Title</p>
+                <button> Click
+                </button>
+              </div>
+            </div>
           </div>
         
           </main>

@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser
 
 
 class Moderator(AbstractBaseUser):
+    #Moderator_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=150, unique=True)
     password = models.CharField(max_length=128)
     location = models.CharField(max_length=100)
@@ -20,12 +21,13 @@ class Moderator(AbstractBaseUser):
         return self.username
 
 class User(AbstractBaseUser):
+    #User_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.EmailField()
     username =models.CharField(max_length=100,unique=True)
     password = models.CharField(max_length=128)
-    phone_no =models.CharField(max_length=100,unique=True)
+    phone_no =models.CharField(max_length=100,unique=True) 
     location =models.CharField(max_length=150)
     user_image =models.ImageField(upload_to="userProfile") 
     dob =models.DateField(null=True)
@@ -37,6 +39,7 @@ class User(AbstractBaseUser):
         return self.username
 
 class Worker(AbstractBaseUser):
+    #Worker_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.EmailField()
@@ -74,3 +77,9 @@ class login(models.Model):
 
     def __str__(self):
         return self.username
+
+
+
+ #class job_post(models.Model):
+    #post_id=models.CharField(max_length=200,primary_key=True)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
