@@ -186,36 +186,29 @@
 
 
             <!-- feed start -->
-          <div style="height: 50px;"></div>
- 
-          <div class="card text-md-start w-100">
-            
+          <div style="height: 50px;"></div>              
+            <div class="card text-md-start w-100">
+              
 
-            <!-- job card -->
-            <div class="card bg-dark text-white">
-              <img class="card-img" style="max-width: 100%;max-height: 250px;opacity: 60%;" src="/static/img/feature.jpg" alt="Card image">
-              <div class="card-img-overlay">
-                <h5 class="card-title">Painting</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text">Last updated 3 mins ago</p>
-                <a href="#" class="btn" style="color: aliceblue;background-color: coral;">Details</a>
-              </div>
-            </div>
-            <!-- job card end -->
-            <div style="height: 50px;"></div>
+              <!-- job card -->
+              {% for i in post %}
+              <div class="card bg-dark text-white">
+                <img class="card-img" style="max-width: 100%;max-height: 250px;opacity: 60%;" src="media/{{i.photo}}" alt="Card image">
+                <div class="card-img-overlay">
+                  <h5 class="card-title">{{i.job_title}}</h5>
+                  <p class="card-text">{{i.job_description}}</p>
+                  <p class="card-text"> {{i.time}}</p>
+                  <a href="#" class="btn" style="color: aliceblue;background-color: coral;">Details</a>
+                </div>
+              </div>            
+              
+              <!-- job card end -->
+              <div style="height: 50px;"></div>
+              {% endfor %}
 
-            <!-- job card -->
-            <div class="card bg-dark text-white">
-              <img class="card-img" style="max-width: 100%;max-height: 250px;" src="/static/img/feature.jpg" alt="Card image">
-              <div class="card-img-overlay">
-                <h5 class="card-title">Painting</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text">Last updated 3 mins ago</p>
-                <a href="#" class="btn" style="color: aliceblue;background-color: coral;">Details</a>
-              </div>
+              
             </div>
-            <!-- job card end -->
-          </div>
+          
         </div>
         <!-- feed ends -->
 

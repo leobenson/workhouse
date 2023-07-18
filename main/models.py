@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser
 
 
 class Moderator(AbstractBaseUser):
-    #Moderator_id = models.AutoField(primary_key=True)
+    
     username = models.CharField(max_length=150, unique=True)
     password = models.CharField(max_length=128)
     location = models.CharField(max_length=100)
@@ -21,7 +21,7 @@ class Moderator(AbstractBaseUser):
         return self.username
 
 class User(AbstractBaseUser):
-    #User_id = models.AutoField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.EmailField()
@@ -39,7 +39,7 @@ class User(AbstractBaseUser):
         return self.username
 
 class Worker(AbstractBaseUser):
-    #Worker_id = models.AutoField(primary_key=True)
+    
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.EmailField()
@@ -59,9 +59,9 @@ class Worker(AbstractBaseUser):
     skill_1 =models.CharField(max_length=150,null= True)
     skill_2 =models.CharField(max_length=150,null= True)
     skill_3 =models.CharField(max_length=150,null= True)
-    id_proof=models.ImageField(upload_to="workerProfile")
-    exp_proof=models.ImageField(upload_to="workerProfile")
-    cv=models.ImageField(upload_to="workerProfile")
+    id_proof=models.ImageField(upload_to="workerfile")
+    exp_proof=models.ImageField(upload_to="workerfile")
+    cv=models.ImageField(upload_to="workerfile")
 
     is_approved=models.BooleanField(null= True)
     status=models.BooleanField(null= True)
@@ -80,6 +80,18 @@ class login(models.Model):
 
 
 
- #class job_post(models.Model):
-    #post_id=models.CharField(max_length=200,primary_key=True)
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Job_post(models.Model):
+    post_id=models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job_title=models.CharField(max_length=150)
+    job_description=models.CharField(max_length=350)
+    location=models.CharField(max_length=150)
+    address=models.CharField(max_length=250)
+    time=models.TimeField()
+    date=models.DateField()
+    min_wage=models.CharField(max_length=150)
+    max_wage=models.CharField(max_length=150)
+    exp_lvl=models.CharField(max_length=150)
+    expected_time=models.CharField(max_length=100)
+    valid=models.BooleanField(null=True)
+    photo=models.ImageField(upload_to="job_post")

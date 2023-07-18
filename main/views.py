@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.contrib import auth 
 from django.contrib.auth import authenticate , login ,logout
 
-from main.models import Moderator, User, Worker
+
+from main.models import Moderator, User, Worker ,Job_post
 
 
 
@@ -11,7 +12,6 @@ from main.models import Moderator, User, Worker
 def my_view(request):
 
     return render(request,"index.html")
-
 
 
 
@@ -23,7 +23,14 @@ def user_home(request):
             f_name=i.first_name
             l_name=i.last_name
             img=i.user_image
-    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img}                            
+    
+    
+    user= User.objects.get(username=username )
+    job_posts = Job_post.objects.filter(user_id=user)
+    worker = Worker.objects.all() 
+    
+           
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img, 'history':job_posts, 'worker':worker}                            
     
     return render(request,"userhome.html",context)
 
@@ -35,7 +42,9 @@ def worker_home(request):
             f_name=i.first_name
             l_name=i.last_name
             img=i.user_image
-    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img}
+
+    post =Job_post.objects.all()        
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img , 'post':post}
     
     return render(request,"workhome.html",context)
 
@@ -79,7 +88,7 @@ def admin_home(request):
 
 
 
-def job_post(request) :
+def job_post(request):
     username = request.session.get('username')
     users =User.objects.all()
     for i in users:
@@ -87,9 +96,46 @@ def job_post(request) :
             f_name=i.first_name
             l_name=i.last_name
             img=i.user_image
-    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img} 
-   
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img}
+
+    if request.method == "POST":
+        job_title=request.POST.get('job_title')
+        job_description=request.POST.get('job_description')
+        location=request.POST.get('location')
+        address=request.POST.get('address')
+        time=request.POST.get('time')
+        date=request.POST.get('date')
+        min_wage=request.POST.get('min_wage')
+        max_wage=request.POST.get('max_wage')
+        exp_lvl=request.POST.get('exp_lvl')
+        expected_time=request.POST.get('expected_time')
+        photo=request.FILES.get('photo')
+
+        user_id = request.session.get('id')
+
+        Job_post.objects.create(
+        job_title=job_title, 
+        job_description=job_description,
+        location=location,
+        address=address,
+        time=time,
+        date=date,
+        min_wage=min_wage,
+        max_wage=max_wage,
+        exp_lvl=exp_lvl,
+        expected_time=expected_time,
+        photo=photo,
+        user_id=user_id           
+
+        )
+        messages.info(request,'created sucessfully')
+        
     return render(request,"jobpost.html",context)
+
+
+
+    
+    
 
 
 
@@ -123,6 +169,7 @@ def login_view(request):
 def _extracted_from_login_view_21(request, user, arg2):
     login(request, user)
     request.session['username'] = request.user.username
+    request.session['id'] = request.user.id
     return redirect(arg2)
 
   
