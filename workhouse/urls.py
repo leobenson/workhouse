@@ -25,6 +25,7 @@ urlpatterns = [
     
     path('',my_view,name="my_view"),
     path('admin/', admin.site.urls),
+    path('admin_worker',admin_worker,name="admin_worker"),
     path('login_view',login_view,name="login_view"),
     path('user_reg',user_reg,name="user_reg"),
     path('worker_reg',worker_reg,name="worker_reg"),
@@ -37,7 +38,11 @@ urlpatterns = [
     path('admin_home',admin_home,name="admin_home"),
     path('moderator_home',moderator_home,name="moderator_home"),
     path('job_post',job_post,name="job_post"),
-    path('worker_valid',worker_valid,name="worker_valid")
+    path('worker_valid',worker_valid,name="worker_valid"),
+    path('post_delete/<id>/',post_delete,name="post_delete"),
+    path('moderator_delete/<id>',moderator_delete,name="moderator_delete"),
+    path('worker_delete/<id>',worker_delete,name="worker_delete"),
+    path('status',status,name="status")
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

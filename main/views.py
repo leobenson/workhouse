@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages 
 from django.contrib import auth 
@@ -43,7 +44,8 @@ def worker_home(request):
             l_name=i.last_name
             img=i.user_image
 
-    post =Job_post.objects.all()        
+    worker=Worker.objects.get(username = username)
+    post=Job_post.objects.filter(job_title = worker.job_title)     
     context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img , 'post':post}
     
     return render(request,"workhome.html",context)
@@ -57,7 +59,12 @@ def moderator_home(request):
 
 def admin_home(request):
     if request.method != "POST":
-        return render(request,'admin_home.html')
+        user=User.objects.all()
+        worker=Worker.objects.all()
+        mod=Moderator.objects.all()
+        post=Job_post.objects.all()
+        context ={'user':user,'worker':worker,'mod':mod,'post':post}
+        return render(request,'admin_home.html',context)
     username = request.POST.get('username')
     password = request.POST.get('password')    
     address = request.POST.get('address')
@@ -85,8 +92,23 @@ def admin_home(request):
     messages.info(request,'registered sucessfully')
     return redirect('/admin_home')
 
+def admin_worker(request):
+    user=User.objects.all()
+    worker=Worker.objects.all()
+    mod=Moderator.objects.all()
+    post=Job_post.objects.all()
+    context ={'user':user,'worker':worker,'mod':mod,'post':post}
+    return render(request,"admin_worker.html",context)
 
+def moderator_delete(request,id):
+    queryset = Moderator.objects.get(id = id)
+    queryset.delete()
+    return redirect('/admin_home')
 
+def worker_delete(request,id):
+    queryset = Worker.objects.get(id = id)
+    queryset.delete()
+    return redirect('/admin_worker')
 
 def job_post(request):
     username = request.session.get('username')
@@ -133,10 +155,19 @@ def job_post(request):
     return render(request,"jobpost.html",context)
 
 
+def post_delete(request,id):
+    queryset = Job_post.objects.get(post_id = id)
+    queryset.delete()
+    return redirect('/user_home')
 
+
+def status(request,post):
+    post=Job_post.objects.filter(job_title = Worker.job_title)
     
+    return (post)     
     
 
+#how to accept a value from radio button in html page in views.py?
 
 
 def login_view(request):
@@ -266,8 +297,22 @@ def worker_reg(request):
     return redirect('/worker_reg')
 
 def worker_valid(request):
-
-    return render(request,"workervalidation.html")
+    username = request.session.get('username')
+    worker=Worker.objects.get(username = username)
+    if request.method == "POST":
+        worker.job_title = request.POST.get('job_title')
+        worker.catagory = request.POST.get('catagory')
+        worker.experience = request.POST.get('experience')
+        worker.skill_1 = request.POST.get('skill_1')
+        worker.skill_2 = request.POST.get('skill_2')
+        worker.skill_3 = request.POST.get('skill_3')
+        worker.id_proof = request.FILES.get('id_proof')
+        worker.exp_proof = request.FILES.get('exp_proof')
+        worker.cv = request.FILES.get('cv')
+        worker.save()
+        messages.info(request,'submitted sucessfully')
+    context ={'worker':worker}
+    return render(request,"workervalidation.html",context)
 
    
 def contact_view(request):

@@ -972,11 +972,11 @@ transition: color 0.15s ease-in;
 }
 
 .container1 input[type="radio"]:checked + label {
-color: #185ee0;
+color: #ffffff;
 }
 
 .container1 input[type="radio"]:checked + label > .notification {
-background-color: #185ee0;
+background-color: #ffffff;
 color: #fff;
 margin: 0px;
 }

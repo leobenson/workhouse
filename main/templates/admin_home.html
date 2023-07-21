@@ -50,8 +50,9 @@
 
  <!--style-->
  <style>
-    .grid-container{
-       display: flex;
+   
+   .grid-container{
+       display:flex; 
        align-items: center;
        justify-content: center;
        padding-top: 50px; 
@@ -60,9 +61,44 @@
 
     .grid-item{
         align-items: center;
+        justify-content: center;
     }
-   
- 
+    table { 
+        
+         
+        border-collapse: collapse; 
+        margin:50px auto;
+        }
+        
+
+    th { 
+        background:  #FF3E41; 
+        color: rgb(255, 255, 255); 
+        font-weight: bold; 
+        }
+
+    td, th { 
+        padding: 10px; 
+        border: 1px solid #ccc; 
+        text-align: left; 
+        font-size: 18px;
+        }
+
+    .labels tr td {
+        background-color: #2cc16a;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .label tr td label {
+        display: block;
+    }
+
+
+    [data-toggle="toggle"] {
+        display: none;
+    }
+    
  </style>
 
  
@@ -147,7 +183,8 @@
   
           <div class="sidebarRow">
             <span class="material-icons"> people </span>
-            <h4>Workers</h4>
+            <a href="/admin_worker">
+            <h4>Workers</h4></a>
           </div>
   
           <div class="sidebarRow">
@@ -218,9 +255,41 @@
             </div>
             
           </div>
-        
-          </main>
+          
+          </main>          
         </div>
+        <div class="grid-item grid-item-2 ">
+            <table class="bg-light text-center p-5 wow fadeIn">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>phone</th>
+                        <th>email</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tbody class="hide">
+                        {%for i in mod%}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.username}}</td>
+                            <td>{{i.location}}</td>
+                            <td>{{i.phone}}</td>
+                            <td>{{i.address}}</td>
+                            <td>{{i.email}}</td>
+                            <td><a href="/moderator_delete/{{i.id}}">Delete</a></td>
+                        </tr>
+                        {%endfor%}
+                        
+                    </tbody>
+                </tbody>    
+            </table>
+          </div>
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-3 wow" data-wow-delay="0.1s" style="margin-top: 6rem;">
         
