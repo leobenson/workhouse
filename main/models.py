@@ -64,7 +64,7 @@ class Worker(AbstractBaseUser):
     cv=models.ImageField(upload_to="workerfile")
 
     is_approved=models.BooleanField(null= True)
-    status=models.BooleanField(null= True)
+    status=models.CharField(max_length=100,null= True)
     report=models.BooleanField(null= True)
 
     def __str__(self):
@@ -95,3 +95,10 @@ class Job_post(models.Model):
     expected_time=models.CharField(max_length=100)
     valid=models.BooleanField(null=True)
     photo=models.ImageField(upload_to="job_post")
+
+
+class Notification(models.Model):
+    notification_id=models.AutoField(primary_key=True)
+    worker=models.ForeignKey(Worker,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    post=models.ForeignKey(Job_post,on_delete=models.CASCADE)

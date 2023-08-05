@@ -1,11 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages 
 from django.contrib import auth 
 from django.contrib.auth import authenticate , login ,logout
 
 
-from main.models import Moderator, User, Worker ,Job_post
+from main.models import Moderator, User, Worker ,Job_post,Notification
 
 
 
@@ -24,15 +24,16 @@ def user_home(request):
             f_name=i.first_name
             l_name=i.last_name
             img=i.user_image
-    
-    
+
+
     user= User.objects.get(username=username )
     job_posts = Job_post.objects.filter(user_id=user)
-    worker = Worker.objects.all() 
+    worker = Worker.objects.all()
+    notifications=Notification.objects.filter(user = user)
     
-           
-    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img, 'history':job_posts, 'worker':worker}                            
-    
+
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img, 'history':job_posts, 'worker':worker, 'notifications':notifications}                            
+
     return render(request,"userhome.html",context)
 
 def worker_home(request):
@@ -45,15 +46,27 @@ def worker_home(request):
             img=i.user_image
 
     worker=Worker.objects.get(username = username)
-    post=Job_post.objects.filter(job_title = worker.job_title)     
-    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img , 'post':post}
-    
+    if worker.status == 'Active':
+        post=Job_post.objects.filter(job_title = worker.job_title)
+        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img , 'post':post}
+    else:
+        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img ,}
     return render(request,"workhome.html",context)
 
 
+def my_radio_view(request):
+    
+    status = request.GET.get('selected_value', None)
+    print(status)
+    username = request.session.get('username')
+    worker=Worker.objects.get(username = username)
+    worker.status=status
+    worker.save()
+    return redirect('/worker_home')
+
 def moderator_home(request):
 
-    return render(request,"moderator_home.html")
+    return render(request,"moderatorhome.html")
 
 
 
@@ -315,6 +328,9 @@ def worker_valid(request):
     return render(request,"workervalidation.html",context)
 
    
+
+
+
 def contact_view(request):
 
     return render(request,"contact.html")
@@ -324,3 +340,34 @@ def about_view(request):
 
     return render(request,"about.html")
 
+def job_single(request,id):
+   username = request.session.get('username')
+   worker=Worker.objects.get(username = username)
+   post=Job_post.objects.get(post_id = id)
+   context = {'worker':worker , 'post':post}
+
+   return render(request,"single_job.html",context)
+
+
+def notify(request,id):
+   username = request.session.get('username')
+   worker=Worker.objects.get(username = username)
+   post=Job_post.objects.get(post_id = id)
+   
+
+   notification = Notification.objects.create(
+       worker=worker,
+       user=post.user,
+       post=post
+   )
+   notification.save()
+   
+   print(notification)
+   return redirect('/worker_home')
+
+
+def get_notifications(request,id):
+   notifications=Notification.objects.get(notification_id = id)
+   notifications.delete()
+   return redirect('/user_home')
+   

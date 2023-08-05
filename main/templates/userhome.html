@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>workhouse</title>
     
-    <link href="{%static 'css/style1.css'%}" rel="stylesheet" type="text/css">
+    <link href="{%static 'css/style2.css'%}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
     <!-- Favicon -->
@@ -332,58 +332,18 @@
           >
             <blockquote>
                 <div class="ticker-container">
+                  
                     <div class="ticker">
+                      {%for i in notifications%}
                             <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
+                                <img src="/media/{{i.worker.user_image}}" alt="" />
+                                <span><b>{{i.worker}}</b> send a request for job</span>
+                                
+                                <hr /><a class=" btn "  href="/get_notifications/{{i.notification_id}}">open</a>
                             </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
+                      {% endfor %}
                     </div>
+                    
                     <div class="ticker__separator"></div>
                     <div class="friend-list">
                         <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>

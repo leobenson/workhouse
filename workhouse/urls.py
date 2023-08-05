@@ -42,7 +42,12 @@ urlpatterns = [
     path('post_delete/<id>/',post_delete,name="post_delete"),
     path('moderator_delete/<id>',moderator_delete,name="moderator_delete"),
     path('worker_delete/<id>',worker_delete,name="worker_delete"),
-    path('status',status,name="status")
+    path('status',status,name="status"),
+    path('my_radio_view/', my_radio_view, name='my_radio_view'),
+    path('job_single/<id>',job_single,name="job_single"),
+    path('notify/<id>',notify,name="notify"),
+    path('get_notifications/<id>',get_notifications,name="get_notifications")
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

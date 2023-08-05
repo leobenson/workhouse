@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>workhouse</title>
   <link href="{%static 'css/home.css'%}" rel="stylesheet" type="text/css">
-  <link href="{%static 'css/style1.css'%}" rel="stylesheet" type="text/css">
+  <link href="{%static 'css/style2.css'%}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
   <!-- Favicon -->
@@ -82,19 +82,67 @@
                     </div>
                     <span class="material-icons"> </span>
                     <div class="container1">
-                      <div class="tabs">
+                      
+                      <div class="tabs"> 
                         
-                        <input type="radio" id="radio-1" name="tabs" value="Active">
+                        <input type="radio" id="radio-1" name="tabs" value="Active" onclick="saveRadioValue(this)">
                         <label class="tab" for="radio-1">Active</label></a>
-                        <input type="radio" id="radio-2" name="tabs" value="On job">
+                        
+                        <input type="radio" id="radio-2" name="tabs" value="On job" onclick="saveRadioValue(this)">
                         <label class="tab" for="radio-2">On Job</label>
-                        <input type="radio" id="radio-3" name="tabs" value="Inactive">
-                        <label class="tab" for="radio-3">Inactive</label> 
+                  
+                        <input type="radio" id="radio-3" name="tabs" value="Inactive" onclick="saveRadioValue(this)">
+                        <label class="tab" for="radio-3">Inactive</label>
+                      </script>
+                  
                         <span class="glider"></span>
                       
                       </div>
+                    
                     </div>
-
+                    <script>
+                      // jQuery code to handle the radio button click event
+                      $('input[name="tabs"]').on('click', function () {
+                          var selectedValue = $(this).val();
+                          
+                          // Make an AJAX request to the Django view
+                          $.ajax({
+                              type: 'GET',
+                              url: '/my_radio_view/',
+                              data: {
+                                  selected_value: selectedValue,
+                                  csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                              },
+                              success: function (response) {
+                                  // Handle the response if needed
+                                  console.log(response);
+                                  reloadPage()
+                              },
+                              error: function (xhr, errmsg, err) {
+                                  // Handle error if needed
+                                  console.log(xhr.status + ": " + xhr.responseText);
+                              }
+                          });
+                      });
+                      function saveRadioValue(radio) {
+                         localStorage.setItem('gliderValue', radio.value);
+                      }
+                      function reloadPage() {
+                        location.reload(); // Reload the current page
+                      }
+                       // Function to set the radio button glider to its previous position
+                      function setPreviousGliderPosition() {
+                          var gliderValue = localStorage.getItem('gliderValue');
+                          if (gliderValue) {
+                              var glider = document.querySelector('input[name="tabs"][value="' + gliderValue + '"]');
+                              if (glider) {
+                                  glider.checked = true;
+                              }
+                          }
+                      }
+                      window.onload = setPreviousGliderPosition;
+                      
+                  </script>  
                     <div class="nav-item dropdown">
                     <span href="#" class="material-icons" data-bs-toggle="dropdown" style="pointer-events: none;"> expand_more </span>
                         <div class="dropdown-menu fade-up m-0  ">
@@ -200,7 +248,7 @@
                   <h5 class="card-title">{{i.job_title}}</h5>
                   <p class="card-text">{{i.job_description}}</p>
                   <p class="card-text"> {{i.time}}</p>
-                  <a href="#" class="btn" style="color: aliceblue;background-color: coral;">Details</a>
+                  <a href="/job_single/{{i.post_id}}" class="btn" style="color: aliceblue;background-color: coral;">Details</a>
                 </div>
               </div>            
               
