@@ -46,7 +46,9 @@ urlpatterns = [
     path('my_radio_view/', my_radio_view, name='my_radio_view'),
     path('job_single/<id>',job_single,name="job_single"),
     path('notify/<id>',notify,name="notify"),
-    path('get_notifications/<id>',get_notifications,name="get_notifications")
+    path('get_notifications/<id>',get_notifications,name="get_notifications"),
+    path('send_message/',send_message,name="send_message"),
+    path('get_messages/<id>',get_messages,name="get_messages")
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

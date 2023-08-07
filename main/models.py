@@ -102,3 +102,10 @@ class Notification(models.Model):
     worker=models.ForeignKey(Worker,on_delete=models.CASCADE)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     post=models.ForeignKey(Job_post,on_delete=models.CASCADE)
+
+
+class Message(models.Model):
+    message_id=models.AutoField(primary_key=True)
+    message=models.CharField(max_length=350)
+    sender=models.CharField(max_length=150)
+    receiver=models.CharField(max_length=150)

@@ -345,7 +345,7 @@
                     </div>
                     
                     <div class="ticker__separator"></div>
-                    <div class="friend-list">
+                    <!--<div class="friend-list">
                         <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
                         <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
                         <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
@@ -366,6 +366,67 @@
                         <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
                         <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
                         <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
+                    </div>-->
+                    {% csrf_token %}
+                    <div class="chatbox">
+                      <div class="chatbox__row">
+                        <div class="head">
+                          <div class="head__avatar avatar avatar_larger">
+                            <a href="#" class="avatar__wrap">
+                                                    A
+                                                </a>
+                          </div>
+                          <div class="head__title" style="font-size: larger;">ADMIN</div>
+                          <div class="head__note">
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="chatbox__row chatbox__row_fullheight">
+                        <div class="chatbox__content">
+                          <div class="message">
+                            <div class="message__head">
+                              
+                              <span class="message__note"> 7:00</span>
+                            </div>
+                            <div class="message__base">
+                              <div class="message__avatar avatar">
+                                <a href="#" class="avatar__wrap">
+                                  <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
+                                </a>
+                              </div>
+                              <div class=" message__textbox" id="chat-messages">
+                                <span class="message__text">Hello, How are you</span>
+                              </div>
+                            </div>
+                          </div>
+          
+                         
+                          
+                          
+                        <script>
+                            const csrfToken = '{{ csrf_token }}';
+                        </script>
+                      
+                          
+                        </div>
+                      </div>
+                      <div class="chatbox__row">
+                        <div class="enter">
+                          <div class="enter__submit">
+                            <button class="button button_id_submit" type="submit" onclick="sendMessage()" >
+                                              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                          </div>
+                          <div class="enter__textarea">
+                            <textarea name="enterMessage" id="message" cols="15" rows="2" placeholder="Say message..."></textarea>
+                          </div>
+                          
+                        </div>
+                      </div>
+            
+            
                     </div>
 
             </blockquote>
@@ -373,6 +434,15 @@
         </div>
       </div>
       <!-- main body ends -->
+     <script>
+      function sendMessage(){
+        var message = document.getElementById("message").value ;
+        message.value='';
+      }
+     </script>
+
+
+
 
 
       

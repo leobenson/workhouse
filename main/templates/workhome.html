@@ -280,56 +280,14 @@
             <blockquote>
                 <div class="ticker-container">
                     <div class="ticker">
+                      {%for i in message%}
                             <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
+                                <img src="/media/{{i.sender.user_image}}" alt="" />
+                                <span><b>{{i.sender}}</b> :<a  href="/get_messages/{{i.message_id}}"> {{i.message}}</span></a>
+                                <hr/>
                             </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
-                            <div class="ticker__post">
-                                <img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" />
-                                <span><b>John Doe</b> liked Jane Doe Apple's post.</span>
-                                <hr />
-                            </div>
+                            {%endfor%}
+                            
                     </div>
                     <div class="ticker__separator"></div>
                     <div class="friend-list">

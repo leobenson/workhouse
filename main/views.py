@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth import authenticate , login ,logout
 
 
-from main.models import Moderator, User, Worker ,Job_post,Notification
+from main.models import Moderator, User, Worker ,Job_post,Notification,Message
 
 
 
@@ -46,11 +46,12 @@ def worker_home(request):
             img=i.user_image
 
     worker=Worker.objects.get(username = username)
+    msg=Message.objects.filter(receiver = worker)
     if worker.status == 'Active':
         post=Job_post.objects.filter(job_title = worker.job_title)
-        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img , 'post':post}
+        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img , 'post':post, 'message':msg}
     else:
-        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img ,}
+        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img ,'message':msg}
     return render(request,"workhome.html",context)
 
 
@@ -65,26 +66,28 @@ def my_radio_view(request):
     return redirect('/worker_home')
 
 def moderator_home(request):
+    username = request.session.get('username')
+    mod=Moderator.objects.get(username = username)
+    worker=Worker.objects.all()
+    post=Job_post.objects.all()
+    user=User.objects.all()
+    context={'mod':mod,'worker':worker,'user':user,'post':post}
 
-    return render(request,"moderatorhome.html")
+
+    return render(request,"moderatorhome.html",context)
 
 
 
 def admin_home(request):
     if request.method != "POST":
-        user=User.objects.all()
-        worker=Worker.objects.all()
-        mod=Moderator.objects.all()
-        post=Job_post.objects.all()
-        context ={'user':user,'worker':worker,'mod':mod,'post':post}
-        return render(request,'admin_home.html',context)
+        return _extracted_from_admin_home_3(request)
     username = request.POST.get('username')
-    password = request.POST.get('password')    
+    password = request.POST.get('password')
     address = request.POST.get('address')
-    phone = request.POST.get('phoneno')   
-    email=request.POST.get('email')    
+    phone = request.POST.get('phoneno')
+    email=request.POST.get('email')
     location=request.POST.get('location')
-   
+
 
     moderator=Moderator.objects.filter(username = username)
     if moderator.exists():
@@ -92,7 +95,7 @@ def admin_home(request):
         return redirect('/admin_home')
 
     moderator = Moderator.objects.create(
-      
+
        username = username,
        address =address,      
        phone = phone,       
@@ -104,6 +107,16 @@ def admin_home(request):
     moderator.save()
     messages.info(request,'registered sucessfully')
     return redirect('/admin_home')
+
+
+# TODO Rename this here and in `admin_home`
+def _extracted_from_admin_home_3(request):
+    user=User.objects.all()
+    worker=Worker.objects.all()
+    mod=Moderator.objects.all()
+    post=Job_post.objects.all()
+    context ={'user':user,'worker':worker,'mod':mod,'post':post}
+    return render(request,'admin_home.html',context)
 
 def admin_worker(request):
     user=User.objects.all()
@@ -201,7 +214,7 @@ def login_view(request):
         else:
             if isinstance(user, Moderator):
                 login(request, user)
-                return redirect('moderator_home')
+                return _extracted_from_login_view_21(request, user, 'moderator_home')
             elif isinstance(user, User):
                 return _extracted_from_login_view_21(request, user, 'user_home')
             elif isinstance(user, Worker):
@@ -369,5 +382,38 @@ def notify(request,id):
 def get_notifications(request,id):
    notifications=Notification.objects.get(notification_id = id)
    notifications.delete()
-   return redirect('/user_home')
+   context={'list':notifications}
+   return render(request,"chat.html",context) 
    
+   
+
+
+
+from django.http import JsonResponse
+from .models import Message
+
+def send_message(request):
+   if request.method == 'POST':
+        import json
+
+        data = json.loads(request.body)
+        msg = data.get('msg')
+        sender = data.get('sender')
+        receiver = data.get('receiver')
+
+        message=Message.objects.create(
+            sender=sender,
+            receiver=receiver,
+            message=msg
+            )
+        message.save()
+        return JsonResponse({'status': 'success'})
+   
+   return JsonResponse({'status': 'error'})
+
+
+def get_messages(request,id):
+    msg=Message.objects.get(message_id = id)
+    return render(request,"worker_chat.html",{'msg':msg})
+   
+
