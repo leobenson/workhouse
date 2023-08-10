@@ -48,7 +48,16 @@ urlpatterns = [
     path('notify/<id>',notify,name="notify"),
     path('get_notifications/<id>',get_notifications,name="get_notifications"),
     path('send_message/',send_message,name="send_message"),
-    path('get_messages/<id>',get_messages,name="get_messages")
+    path('get_messages/<sender>',get_messages,name="get_messages"),
+    path('delete_messeges/<id>',delete_messeges,name="delete_messeges"),
+    path('user_single/<sender>',user_single,name="user_single"),
+    path('worker_single/<id>',worker_single,name="worker_single"),
+    path('report_worker/<id>',report_worker,name="report_worker"),
+    path('validate_worker/<id>',validate_worker,name="validate_worker"),
+    path('activate_worker/<id>',activate_worker,name="activate_worker"),
+    path('get_user_messages/<sender>',get_user_messages,name="get_user_messages"),
+    path('send_feedback/',send_feedback,name="send_feedback"),
+    path('mod_worker_single/<id>',mod_worker_single,name="mod_worker_single")
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

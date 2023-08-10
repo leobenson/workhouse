@@ -189,7 +189,7 @@
   
           <div class="sidebarRow">
             <span class="material-icons"> chat </span>
-            <h4>Messege</h4>
+            <h4>user</h4>
           </div>
   
           <div class="sidebarRow">
@@ -220,6 +220,8 @@
                             <th>Title</th>
                             <th>Status</th>
                             <th>Action</th>
+                            <th>Validate</th>
+                            <th>Report</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -235,7 +237,9 @@
                                 <td>{{i.email}}</td>
                                 <td>{{i.job_title}}</td>
                                 <td>{{i.status}}</td>
-                                <td><a href="/worker_delete/{{i.id}}">Delete</a></td>
+                                <td><a href="/activate_worker/{{i.id}}">Activate</a></td>
+                                <td><a href="/validate_worker/{{i.id}}">validate</a></td>
+                                <td><a href="/report_worker/{{i.id}}">Report</a></td>
                             </tr>
                             {%endfor%}
                             

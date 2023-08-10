@@ -1040,11 +1040,11 @@ html,
 .button:hover,
 button:focus {
   background-color: #FF3E41;
-  border-radius: 50%;
+  
 }
 
 .button_id_submit {
-  border-radius: 50%;
+  
   height: 35px;
   width: 35px;
   color: #FF3E41;
@@ -1512,7 +1512,7 @@ button:focus {
   width: 35px;
   height: 35px;
   border: 2px solid #e2e3e7;
-  border-radius: 50%;
+  
   background-color: #fff;
   text-align: center;
   

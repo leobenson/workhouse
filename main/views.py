@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth import authenticate , login ,logout
 
 
-from main.models import Moderator, User, Worker ,Job_post,Notification,Message
+from main.models import Moderator, User, Worker ,Job_post,Notification,Message,Report,Feedback
 
 
 
@@ -30,28 +30,23 @@ def user_home(request):
     job_posts = Job_post.objects.filter(user_id=user)
     worker = Worker.objects.all()
     notifications=Notification.objects.filter(user = user)
+    msg=Message.objects.filter(receiver = user.username)
     
 
-    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img, 'history':job_posts, 'worker':worker, 'notifications':notifications}                            
+    context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img, 'history':job_posts, 'worker':worker, 'notifications':notifications,'msg':msg}                            
 
     return render(request,"userhome.html",context)
 
 def worker_home(request):
+    
     username = request.session.get('username')
-    users =Worker.objects.all()
-    for i in users:
-        if i.username == username:
-            f_name=i.first_name
-            l_name=i.last_name
-            img=i.user_image
-
     worker=Worker.objects.get(username = username)
-    msg=Message.objects.filter(receiver = worker)
-    if worker.status == 'Active':
+    msg=Message.objects.filter(receiver = worker.username)
+    if worker.status == 'Active' and worker.is_approved == True and worker.is_report == False: 
         post=Job_post.objects.filter(job_title = worker.job_title)
-        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img , 'post':post, 'message':msg}
+        context = {'worker':worker, 'post':post, 'message':msg}
     else:
-        context = {'username':username,'f_name':f_name,'l_name':l_name,'img':img ,'message':msg}
+        context = {'worker':worker ,'message':msg,}
     return render(request,"workhome.html",context)
 
 
@@ -359,7 +354,7 @@ def job_single(request,id):
    post=Job_post.objects.get(post_id = id)
    context = {'worker':worker , 'post':post}
 
-   return render(request,"single_job.html",context)
+   return render(request,"job_single.html",context)
 
 
 def notify(request,id):
@@ -411,9 +406,102 @@ def send_message(request):
    
    return JsonResponse({'status': 'error'})
 
+def send_feedback(request):
+   if request.method == 'POST':
+        import json
 
-def get_messages(request,id):
-    msg=Message.objects.get(message_id = id)
-    return render(request,"worker_chat.html",{'msg':msg})
+        data = json.loads(request.body)
+        feedback = data.get('feedback')
+        
+        worker = data.get('worker')
+        worker =Worker.objects.get(username = worker)
+
+        feedback=Feedback.objects.create(
+            
+            worker=worker,
+            feedback=feedback
+            )
+        feedback.save()
+        return JsonResponse({'status': 'success'})
    
+   return JsonResponse({'status': 'error'})
 
+
+
+def get_messages(request,sender):
+    username = request.session.get('username')
+    worker= Worker.objects.get(username=username )
+    msg=Message.objects.filter(sender = sender)
+    context={'msg':msg,'worker':worker,'sender':sender}
+    
+    return render(request,"message_worker.html",context)
+   
+def get_user_messages(request,sender):
+    username = request.session.get('username')
+    user=User.objects.get(username = username)
+    msg=Message.objects.filter(sender = sender)
+    context={'msg':msg,'user':user,'sender':sender}
+    
+    return render(request,"message_user.html",context)
+
+
+def delete_messeges(request,id):
+    msg=Message.objects.get(message_id = id)
+    msg.delete()
+    return redirect('/worker_home')
+
+def user_single(request,sender):
+    user=User.objects.get(username = sender)
+    person=request.session.get('username')
+    worker=Worker.objects.get(username=person)
+    context={'user':user,'worker':worker}
+    if request.method == 'POST':
+        reason=request.POST.get('reason')
+        report=Report.objects.create(
+            user=user,
+            reason=reason,
+            reported_by=person
+        )
+        report.save()
+    return render(request,"usersingle.html",context) 
+
+def worker_single(request,id):
+    username = request.session.get('username')
+    user= User.objects.get(username=username )
+    worker=Worker.objects.get(username = id)
+    context={'user':user,'worker':worker}
+    if request.method == 'POST':
+        reason=request.POST.get('reason')
+        report=Report.objects.create(
+            worker=worker,
+            reason=reason,
+            reported_by=user.username
+        )
+        report.save()
+    return render(request,"workersingle.html",context)
+
+def report_worker(request ,id):
+    worker=Worker.objects.get(id = id)
+    worker.is_report=True
+    worker.save()
+    return HttpResponse('worker reported')
+
+def validate_worker(reuest,id):
+    worker=Worker.objects.get(id = id)
+    worker.is_approved=True
+    worker.is_report=False
+    worker.save()
+    return HttpResponse('worker approved')
+
+def activate_worker(request,id):
+    worker=Worker.objects.get(id = id)
+    worker.is_report=False
+    worker.save()
+    return HttpResponse('worker activated')
+
+def mod_worker_single(request,id):
+    username = request.session.get('username')
+    mod=Moderator.objects.get(username = username)
+    worker=Worker.objects.get(id = id)
+    context={'mod':mod,'worker':worker}
+    return render(request,"mod_workersingle.html",context)

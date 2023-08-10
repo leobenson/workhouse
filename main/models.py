@@ -65,7 +65,7 @@ class Worker(AbstractBaseUser):
 
     is_approved=models.BooleanField(null= True)
     status=models.CharField(max_length=100,null= True)
-    report=models.BooleanField(null= True)
+    is_report=models.BooleanField(null= True,default=True)
 
     def __str__(self):
         return self.username
@@ -109,3 +109,17 @@ class Message(models.Model):
     message=models.CharField(max_length=350)
     sender=models.CharField(max_length=150)
     receiver=models.CharField(max_length=150)
+
+class Report(models.Model):
+    report_id=models.AutoField(primary_key=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    worker=models.ForeignKey(Worker,on_delete=models.CASCADE,null=True)
+    reason=models.TextField(blank=False , null= False )
+    reported_by=models.CharField(max_length=150)
+
+
+class Feedback(models.Model):
+    feedback_id= models.AutoField(primary_key=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    worker=models.ForeignKey(Worker,on_delete=models.CASCADE,null=True)
+    feedback=models.TextField(blank=False , null= False )   

@@ -75,10 +75,10 @@
                     <div class="header__info">
                       <img
                         class="user__avatar"
-                        src="media/{{img}}"
-                        alt=""
+                        src="media/{{worker.user_image}}"
+                        alt=""height="45px" width="45px"
                       />
-                      <h4>{{username}}</h4>
+                      <h4>{{worker.username}}</h4>
                     </div>
                     <span class="material-icons"> </span>
                     <div class="container1">
@@ -169,10 +169,10 @@
           <div class="sidebarRow">
             <img
               class="user__avatar"
-              src="media/{{img}}"
-              alt=""
+              src="media/{{worker.user_image}}"
+              alt="" height="45px" width="45px"
             />
-            <h4>{{f_name}} {{l_name}}</h4>
+            <h4>{{worker.first_name}} {{worker.last_name}}</h4>
           </div>
   
           
@@ -281,37 +281,81 @@
                 <div class="ticker-container">
                     <div class="ticker">
                       {%for i in message%}
-                            <div class="ticker__post">
-                                <img src="/media/{{i.sender.user_image}}" alt="" />
-                                <span><b>{{i.sender}}</b> :<a  href="/get_messages/{{i.message_id}}"> {{i.message}}</span></a>
-                                <hr/>
+                      <div class="chat__users">
+                        <ul class="users">
+                          <li class="users__item users__item_group">
+                            <div class="users__avatar avatar">
+                              <a href="/user_single/{{i.sender}}" class="avatar__wrap">
+                                <span class="material-icons"> chat </span></a>
                             </div>
+                            <span class="users__note">{{i.sender}}</span>
+                            <div class="users__counter">
+                              <a href="/delete_messeges/{{i.message_id}}"><span class="counter">1+</span></a>
+                            </div>
+                          </li>
+                          
+                        </ul>
+                      </div>
                             {%endfor%}
                             
                     </div>
+                    
                     <div class="ticker__separator"></div>
-                    <div class="friend-list">
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
-                        <div class="friend"><img src="https://randomuser.me/api/portraits/thumb/men/33.jpg" alt="" /><span class="friend__name">John Doe</span><span class="availability">&nbsp;</span></div>
+                    <div >
+                    <div class="modal__main">
+                    <div class="chatbox">
+                      <div class="chatbox__row">
+                        <div class="head">
+                          <div class="head__avatar avatar avatar_larger">
+                            <a href="" class="avatar__wrap">
+                                                    A
+                                                </a>
+                          </div>
+                          <div class="head__title" style="font-size: larger;">ADMIN</div>
+                          <div class="head__note">
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="chatbox__row chatbox__row_fullheight">
+                        <div class="chatbox__content">
+                          <div class="message">
+                            <div class="message__head">
+                              <span class="message__note">{{i.sender}}</span>
+                            </div>
+                            <div class="message__base">
+                              <div class="message__avatar avatar">
+                                <a href="#" class="avatar__wrap">
+                                  <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
+                                </a>
+                              </div>
+                              <div class="message__textbox">
+                                <span class="message__text">Hello,give feedback ?</span>
+                              </div>
+                            </div>
+                          </div>
+                           
+                        </div>
+                      </div>
+                      <div class="chatbox__row">
+                        <div class="enter">
+                          <div class="enter__submit">
+                            <button class="button button_id_submit"  onclick="send()" type="submit"   >
+                                              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            </button>
+                          </div>
+                          <div class="enter__textarea">
+                            <textarea name="message" id="message" cols="15" rows="2" placeholder="Say message..."></textarea>
+                          </div>
+                          
+                        </div>
+                      </div>
+            
+            
                     </div>
+                  </div>
+                              </div>
 
             </blockquote>
           </div>
@@ -319,7 +363,57 @@
         <!-- sidebar ends -->
       </div>
       <!-- main body ends -->
+      <script>
+        function send(){
+            var feedback = document.getElementById("message").value;
+            
+            var worker="{{worker}}"
+            console.log(feedback,worker);
 
+            var data = {
+                'feedback': feedback,
+                
+                'worker': worker
+            };
+            
+            // Make an AJAX POST request using the fetch API
+            fetch('/send_feedback/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Include CSRF token for security
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Message sent successfully!');
+                } else {
+                    console.error('Failed to send message.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+            message.value='';
+        }
+
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
 
       
 
