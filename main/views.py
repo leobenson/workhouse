@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages 
 from django.contrib import auth 
 from django.contrib.auth import authenticate , login ,logout
+from django.db.models import Q
 
 
 from main.models import Moderator, User, Worker ,Job_post,Notification,Message,Report,Feedback
@@ -43,7 +44,7 @@ def worker_home(request):
     worker=Worker.objects.get(username = username)
     msg=Message.objects.filter(receiver = worker.username)
     if worker.status == 'Active' and worker.is_approved == True and worker.is_report == False: 
-        post=Job_post.objects.filter(job_title = worker.job_title)
+        post=Job_post.objects.filter(Q(job_title=worker.job_title) & Q(location=worker.location))
         context = {'worker':worker, 'post':post, 'message':msg}
     else:
         context = {'worker':worker ,'message':msg,}
@@ -66,7 +67,8 @@ def moderator_home(request):
     worker=Worker.objects.all()
     post=Job_post.objects.all()
     user=User.objects.all()
-    context={'mod':mod,'worker':worker,'user':user,'post':post}
+    feed=Feedback.objects.all()
+    context={'mod':mod,'worker':worker,'user':user,'post':post,'feed':feed}
 
 
     return render(request,"moderatorhome.html",context)
@@ -204,7 +206,7 @@ def login_view(request):
 
         print (user)
         if user is None:
-            messages.error(request , 'invalid password')
+            messages.error(request , 'invalid username or password')
             return redirect('/login_view')
         else:
             if isinstance(user, Moderator):
@@ -331,12 +333,11 @@ def worker_valid(request):
         worker.exp_proof = request.FILES.get('exp_proof')
         worker.cv = request.FILES.get('cv')
         worker.save()
-        messages.info(request,'submitted sucessfully')
+        messages.info(request,'submitted sucessfully')   
     context ={'worker':worker}
     return render(request,"workervalidation.html",context)
 
    
-
 
 
 def contact_view(request):
@@ -439,7 +440,7 @@ def get_messages(request,sender):
 def get_user_messages(request,sender):
     username = request.session.get('username')
     user=User.objects.get(username = username)
-    msg=Message.objects.filter(sender = sender)
+    msg = Message.objects.filter(Q(sender=sender) & Q(receiver=user))
     context={'msg':msg,'user':user,'sender':sender}
     
     return render(request,"message_user.html",context)
@@ -505,3 +506,10 @@ def mod_worker_single(request,id):
     worker=Worker.objects.get(id = id)
     context={'mod':mod,'worker':worker}
     return render(request,"mod_workersingle.html",context)
+
+
+def view_job_progress(request):
+    username = request.session.get('username')
+    user= User.objects.get(username=username )
+    context={'user':user}
+    return render(request,"progress.html",context) 

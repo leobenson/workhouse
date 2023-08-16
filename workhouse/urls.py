@@ -57,7 +57,8 @@ urlpatterns = [
     path('activate_worker/<id>',activate_worker,name="activate_worker"),
     path('get_user_messages/<sender>',get_user_messages,name="get_user_messages"),
     path('send_feedback/',send_feedback,name="send_feedback"),
-    path('mod_worker_single/<id>',mod_worker_single,name="mod_worker_single")
+    path('mod_worker_single/<id>',mod_worker_single,name="mod_worker_single"),
+    path('view_job_progress',view_job_progress,name="view_job_progress")
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

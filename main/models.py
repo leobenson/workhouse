@@ -123,3 +123,11 @@ class Feedback(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     worker=models.ForeignKey(Worker,on_delete=models.CASCADE,null=True)
     feedback=models.TextField(blank=False , null= False )   
+
+
+class job(models.Model):
+    job_id=models.AutoField(primary_key=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    worker=models.ForeignKey(Worker,on_delete=models.CASCADE)
+    post_id=models.ForeignKey(Job_post,on_delete=models.CASCADE)
+    status=models.CharField(max_length=150,default="pending")

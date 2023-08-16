@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>workhouse</title>
+  <title>Swift Hire</title>
   
   <link href="{%static 'css/style(3).css'%}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -124,11 +124,11 @@
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <div class="header__left">
             <a href="index.html" class="navbar-brand bg-primary d-flex align-items-center px-4 px-lg-5">
-                <h2 class="mb-2 text-white">workhouse</h2>
+                <h2 class="mb-2 text-white">Swift Hire</h2>
             </a>
             <div class="header__input">
               <span class="material-icons"> search </span>
-              <input type="text" placeholder="Search on workhouse" />
+              <input type="text" placeholder="Search on Swift Hire" />
             </div>
           </div>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -177,7 +177,7 @@
             <img
               class="user__avatar"
               src="/media/{{worker.user_image}}"
-              alt=""
+              alt="" width="45" height="45"
             />
             <h4>{{worker.first_name}}{{worker.last_name}}</h4>
           </div>
@@ -196,7 +196,7 @@
   
           <div class="sidebarRow">
             <span class="material-icons"> chat </span>
-            <h4>Messenge</h4>
+            <h4>message</h4>
           </div>
   
           <div class="sidebarRow">
@@ -243,7 +243,7 @@
                         'sender': sender,
                         'receiver': receiver
                     };
-                    
+                    msg.value='';
                     // Make an AJAX POST request using the fetch API
                     fetch('/send_message/', {
                         method: 'POST',
@@ -263,6 +263,7 @@
                     .catch(error => {
                         console.error('Error:', error);
                     });
+
                     
                 }
         
@@ -293,10 +294,7 @@
                         <div class="widget-body">
                             
                             
-                    <a href="#" class="btn btn-sm btn-block btn-success">
-                       
-                        <span class="bigger-110">Accept</span>
-                    </a>
+                    
 
                     <a href="#" class="btn btn-sm btn-block btn-primary">
                         
@@ -316,11 +314,11 @@
           <div class="copyright">
               <div class="row">
                   <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                      &copy; <a class="border-bottom" href="#">workhouse</a>, All Right Reserved.
+                      &copy; <a class="border-bottom" href="#">Swift Hire</a>, All Right Reserved.
                   </div>
                   <div class="col-md-6 text-center text-md-end">
                       <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                      Designed By <a class="border-bottom" href="https://htmlcodex.com">IT Team workhouse</a>
+                      Designed By <a class="border-bottom" href="https://htmlcodex.com">IT Team Swift Hire</a>
                   </div>
               </div>
           </div>
@@ -331,220 +329,7 @@
        </div>
     <!-- feed ends -->
   
-        <div style="flex: 0.33" class="widgets">
-          <div
-            class="fb-page"
-            data-href="https://www.facebook.com/facebook"
-            data-tabs="timeline"
-            data-width="500"
-            data-height="1000"
-            data-small-header="false"
-            data-adapt-container-width="true"
-            data-hide-cover="false"
-            data-show-facepile="true"
-          >
-            <blockquote>
-                <div class="ticker-container">
-                    <div class="ticker" style="height: 40%;">
-                            
-                        <div class="modal__sidebar">
-                            <div class="chat__search search">
-                              <div class="search">
-                                <div class="search__icon">
-                                  <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
-                                <input type="search" class="search__input" placeholder="Search">
-                                <div class="search__icon search__icon_right">
-                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="chat__users">
-                              <ul class="users">
-                                <li class="users__item users__item_group">
-                                  <div class="users__avatar avatar">
-                                    <a href="#" class="avatar__wrap">
-                                                            A
-                                                        </a>
-                                  </div>
-                                  <span class="users__note">ADMIN</span>
-                                  <div class="users__counter">
-                                    <span class="counter">2+</span>
-                                  </div>
-                                </li>
-                                <li class="users__item">
-                                  <div class="users__avatar avatar avatar_online">
-                                    <a href="#" class="avatar__wrap">
-                                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                                    </a>
-                                  </div>
-                                  <span class="users__note">MODERATOR 1</span>
-                                  <div class="users__counter">
-                                    <span class="counter">3</span>
-                                  </div>
-                                </li>
-                                <li class="users__item">
-                                  <div class="users__avatar">
-                                    <a href="#" class="avatar__wrap">
-                                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                                    </a>
-                                  </div>
-                                  <span class="users__note">LEO T BENSON</span>
-                                  <div class="users__counter">
-                                    <span class="counter">6</span>
-                                  </div>
-                                </li>
-                                <li class="users__item">
-                                  <div class="users__avatar avatar avatar_online">
-                                    <a href="#" class="avatar__wrap">
-                                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                                    </a>
-                                  </div>
-                                  <span class="users__note">ASLAM</span>
-                                  <div class="users__counter">
-                                    <span class="counter">2</span>
-                                  </div>
-                                </li>
-                                <li class="users__item">
-                                  <div class="users__avatar avatar">
-                                    <a href="#" class="avatar__wrap">
-                                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                                    </a>
-                                  </div>
-                                  <span class="users__note">NANDU</span>
-                                  <div class="counter"></div>
-                                </li>
-                                <li class="users__item">
-                                  <div class="users__avatar avatar avatar_online">
-                                    <a href="#" class="avatar__wrap">
-                                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                                    </a>
-                                  </div>
-                                  <span class="users__note">MODERATOR 8</span>
-                                  <div class="counter"></div>
-                                </li>
-                                <li class="users__item">
-                                  <div class="users__avatar avatar">
-                                    <a href="#" class="avatar__wrap">
-                                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                                    </a>
-                                  </div>
-                                  <span class="users__note">SANTO SAJI</span>
-                                  <div class="counter"></div>
-                                </li>
-                                <li class="users__item">
-                                  <div class="users__avatar avatar">
-                                    <a href="#" class="avatar__wrap">
-                                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                                    </a>
-                                  </div>
-                                  <span class="users__note">NAIR</span>
-                                  <div class="counter"></div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-
-
-
-
-                    </div>
-                    <div class="ticker__separator"></div>
-                    <div >
-                         <div class="modal__main">
-          <div class="chatbox">
-            <div class="chatbox__row">
-              <div class="head">
-                <div class="head__avatar avatar avatar_larger">
-                  <a href="#" class="avatar__wrap">
-                                          A
-                                      </a>
-                </div>
-                <div class="head__title" style="font-size: larger;">ADMIN</div>
-                <div class="head__note">
-                  
-                  
-                </div>
-              </div>
-            </div>
-            <div class="chatbox__row chatbox__row_fullheight">
-              <div class="chatbox__content">
-                <div class="message">
-                  <div class="message__head">
-                    
-                    <span class="message__note"> 7:00</span>
-                  </div>
-                  <div class="message__base">
-                    <div class="message__avatar avatar">
-                      <a href="#" class="avatar__wrap">
-                        <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                      </a>
-                    </div>
-                    <div class="message__textbox">
-                      <span class="message__text">Hello, How are you</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="message__head">
-                    
-                  <span class="message__note"> 7:00</span>
-                </div>
-                <div class="message__base">
-                  <div class="message__avatar avatar">
-                    <a href="#" class="avatar__wrap">
-                      <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                    </a>
-                  </div>
-                  <div class="message__textbox">
-                    <span class="message__text">Hello, How are you</span>
-                  </div>
-                </div>
-              </div>
-                
-                
-                
-            
-                <div class="message">
-                  <div class="message__head">
-                    <span class="message__note">4:00</span>
-                  </div>
-                  <div class="message__base">
-                    <div class="message__avatar avatar">
-                      <a href="#" class="avatar__wrap">
-                        <img class="avatar__img" src="http://placehold.it/35x35" width="35" height="35" alt="avatar image">
-                      </a>
-                    </div>
-                    <div class="message__textbox">
-                      <span class="message__text">Hello,Completed work ?</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="chatbox__row">
-              <div class="enter">
-                <div class="enter__submit">
-                  <button class="button button_id_submit" type="submit">
-                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                  </button>
-                </div>
-                <div class="enter__textarea">
-                  <textarea name="enterMessage" id="enterMessage" cols="15" rows="2" placeholder="Say message..."></textarea>
-                </div>
-                
-              </div>
-            </div>
-  
-  
-          </div>
-        </div>
-                    </div>
-
-            </blockquote>
-          </div>
-        </div>
-      </div>
+        
       <!-- main body ends -->
 
 

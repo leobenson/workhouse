@@ -1595,7 +1595,7 @@ button:focus {
 
 
 
-.cards {
+/*.cards {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -1732,6 +1732,6 @@ border-bottom-right-radius: 12px;
 
 .card:hover .card__info-hover {
     opacity: 1;
-}
+}*?
 
 
